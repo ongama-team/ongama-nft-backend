@@ -1,0 +1,34 @@
+import { User } from '../users/users.entity';
+export declare class Nft {
+    readonly id: number;
+    tokenUri: string;
+    creatorId: number;
+    creatorAddress: string;
+    ownerId: number;
+    ownerAddress: string;
+    ownerUsername: string;
+    creatorUsername: string;
+    mintTransactionHash: string;
+    tokenID: number;
+    name: string;
+    priority: number;
+    description: string;
+    fileSize: number;
+    listed: boolean;
+    listedOnChain: boolean;
+    verified: boolean;
+    image: string;
+    url: string;
+    urlCompressed: string;
+    urlThumbnail: string;
+    price: number;
+    storageFee: number;
+    storageFeeTransaction: string;
+    fileType: string;
+    isVideo: boolean;
+    active: boolean;
+    creator: User;
+    owner: User;
+    createdAt: Date | string;
+    updatedAt: Date | string;
+}
