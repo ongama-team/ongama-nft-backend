@@ -39,7 +39,7 @@ console.log(process.env.REDIS_HOST, ' | ', process.env.REDIS_PORT, ' | ',process
   imports: [
     CacheModule.register({
       store: redisStore,
-      host: process.env.REDIS_HOST || 'localhost',
+      host: 'ec2-34-200-100-197.compute-1.amazonaws.com',
       port: process.env.REDIS_PORT || 6379,
       auth_pass: process.env.REDIS_PASS || '',
       db: 0,
