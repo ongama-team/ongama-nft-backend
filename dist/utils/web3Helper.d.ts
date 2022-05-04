@@ -11,3 +11,9 @@ export declare class Web3Helper {
     static getWeb3(): WebInitParams;
     static getAddressChecksum(address: string): string;
 }
+export declare const validateWalletSignature: ({ data, walletAddress, signature, validateTimestamp, }: {
+    data: any;
+    walletAddress: string;
+    signature: string;
+    validateTimestamp?: boolean;
+}) => Promise<boolean>;

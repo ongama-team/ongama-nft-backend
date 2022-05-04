@@ -61,20 +61,15 @@ if (process.env.NODE_EN === 'production') {
         useClass: common_1.CacheInterceptor,
     });
 }
-console.log(process.env.REDIS_HOST, ' | ', process.env.REDIS_PORT, ' | ', process.env.REDIS_PASS);
+const isProd = process.env.NODE_EN === 'production';
+const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
+console.log("HIDUDE", redisOptions);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     common_1.Module({
         imports: [
-            common_1.CacheModule.register({
-                store: redisStore,
-                host: 'ec2-34-200-100-197.compute-1.amazonaws.com',
-                port: process.env.REDIS_PORT || 6379,
-                auth_pass: process.env.REDIS_PASS || '',
-                db: 0,
-                ttl: 600
-            }),
+            common_1.CacheModule.register(Object.assign({ store: redisStore }, redisOptions)),
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',
                 validationSchema: Joi.object({

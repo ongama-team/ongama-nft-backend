@@ -5911,9 +5911,94 @@
         "signature": "089e611f488f1de8aeb1c32c396d376b5c6e04f7b41684d334fe30139ae1dc02",
         "affectsGlobalScope": false
       },
+      "../node_modules/ethereumjs-util/dist/@types/ethjs-util/index.d.ts": {
+        "version": "30865d48e71de57497bd598ee1dc87d0a42dd555934d311bb0a355f78de62d01",
+        "signature": "30865d48e71de57497bd598ee1dc87d0a42dd555934d311bb0a355f78de62d01",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/node_modules/@types/bn.js/index.d.ts": {
+        "version": "cdac7e46e615e1fdcca7c3a2aab2fbd19085443048733cf239a090f7a17efa27",
+        "signature": "cdac7e46e615e1fdcca7c3a2aab2fbd19085443048733cf239a090f7a17efa27",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/constants.d.ts": {
+        "version": "b0f72b7052f4055648876133bdd4ee46db737d600055a9bbb8a92ae53a6da104",
+        "signature": "b0f72b7052f4055648876133bdd4ee46db737d600055a9bbb8a92ae53a6da104",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/address.d.ts": {
+        "version": "f088fc61a58098de4c3997552a683b544e146a712caad24e63f3bcd9ce876fae",
+        "signature": "f088fc61a58098de4c3997552a683b544e146a712caad24e63f3bcd9ce876fae",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/bytes.d.ts": {
+        "version": "deadd1ad16fcf69e3dacb0e5c1841251462519840a17f977d74b0784a5eb6395",
+        "signature": "deadd1ad16fcf69e3dacb0e5c1841251462519840a17f977d74b0784a5eb6395",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/types.d.ts": {
+        "version": "1825e63d853aa6c727349a4ee2643bf4bbfb0339e742bd2da988168995542feb",
+        "signature": "1825e63d853aa6c727349a4ee2643bf4bbfb0339e742bd2da988168995542feb",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/account.d.ts": {
+        "version": "0ed41aacfec85fbe271cdc8d303a2041b5e155908cb8bda678b1683538497b0f",
+        "signature": "0ed41aacfec85fbe271cdc8d303a2041b5e155908cb8bda678b1683538497b0f",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/rlp/dist/types.d.ts": {
+        "version": "1ee47e6ed1cf98c573934f9a63e65cd7acf7314a2654da2630c2be6bda12871b",
+        "signature": "1ee47e6ed1cf98c573934f9a63e65cd7acf7314a2654da2630c2be6bda12871b",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/rlp/dist/index.d.ts": {
+        "version": "8fcc2bc8dae2c29f7db02ca5112f343936e544bab0dd66c997ec2045fae4b660",
+        "signature": "8fcc2bc8dae2c29f7db02ca5112f343936e544bab0dd66c997ec2045fae4b660",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/hash.d.ts": {
+        "version": "7d4c554cd46e7cac2df54ab4eb2b414760ea85195c62931b6d23c2730669dfc5",
+        "signature": "7d4c554cd46e7cac2df54ab4eb2b414760ea85195c62931b6d23c2730669dfc5",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/signature.d.ts": {
+        "version": "70b0cb7f6b1b3a3bb44b328d7bab6ec3f6f1d75506ad660e0f38d408f99e3eca",
+        "signature": "70b0cb7f6b1b3a3bb44b328d7bab6ec3f6f1d75506ad660e0f38d408f99e3eca",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/object.d.ts": {
+        "version": "a4dad01f270d6cd8ff8d8229d0975833ebf847e560dafaded532f8e31a497ecf",
+        "signature": "a4dad01f270d6cd8ff8d8229d0975833ebf847e560dafaded532f8e31a497ecf",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/externals.d.ts": {
+        "version": "89a120f976e17500b9e242637ae377462850517b04aa45981c92c60a490386ee",
+        "signature": "89a120f976e17500b9e242637ae377462850517b04aa45981c92c60a490386ee",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/ethereumjs-util/dist/index.d.ts": {
+        "version": "cf1d0d9c1e525fad0218a51073d50b058a9f166dbcc3605345853443bdfd6720",
+        "signature": "cf1d0d9c1e525fad0218a51073d50b058a9f166dbcc3605345853443bdfd6720",
+        "affectsGlobalScope": false
+      },
+      "../src/utils/cryptographer.ts": {
+        "version": "e92694921a89276dd7fc314e18ea7c0842e88ab318d85db41eb0a3b4274a66da",
+        "signature": "3687c24774127c63515571b0aeb6392b494aa0bde033fa1724dedf5bfd5f62be",
+        "affectsGlobalScope": false
+      },
+      "../node_modules/slugify/slugify.d.ts": {
+        "version": "2d526d2a2d6dfd1980fb6eaf7aa668c24d339e27b41cac2a72efc75abe301b35",
+        "signature": "2d526d2a2d6dfd1980fb6eaf7aa668c24d339e27b41cac2a72efc75abe301b35",
+        "affectsGlobalScope": false
+      },
+      "../src/utils/utils.ts": {
+        "version": "b8d6a8728f8fe9ffffcf9f3750e34955d317b31505f2d9354752c730b8aefa29",
+        "signature": "a9aabeaccd24095a804718afa25265a4eef91d43c0d311aa1f11dfd463418d1c",
+        "affectsGlobalScope": false
+      },
       "../src/utils/web3helper.ts": {
-        "version": "b26f2ee11b905e139a7485c9f84b49602d9c7a7171eb9a7ecf32a5a218745e36",
-        "signature": "abb3ed531885da521d5ffcc6eaa77e14fea63eca6343aef41cbf27819d6e9cb9",
+        "version": "af7d78a07dee53c90a4934a31410dad7e7154ae03fbd1add058bc0954286554f",
+        "signature": "3bafbf2b127aad8aced02dd55111b50c1325dbb7b13de9fdc6ae36bffe966f87",
         "affectsGlobalScope": false
       },
       "../src/web-socket/listener/nft-created.listener.ts": {
@@ -5947,7 +6032,7 @@
         "affectsGlobalScope": false
       },
       "../src/app.module.ts": {
-        "version": "6aea9ba0829618a22f91dbbd36ed3fb5d8004ccb0e80dcd533a5c7072251bfae",
+        "version": "1976b1caf133066e1bfa867b5d1050e1089d62da5ea0487112c20248cb3c1d66",
         "signature": "9fc7f7b6ad854404973b8cba8e6d883f758237991968e9a3965d716d46f1da88",
         "affectsGlobalScope": false
       },
@@ -5991,6 +6076,11 @@
         "signature": "9b90bcf12e97bb5a2d0812ba778b0f3cd437adddedc7f8e0da46a5d9208b4d73",
         "affectsGlobalScope": false
       },
+      "../src/guards/walletsignature.guard.ts": {
+        "version": "9978521a2c0b4d3d6c8439560c73ba2ca940ce6b67307f6418adc0ebeac6f9a6",
+        "signature": "0bc6ad46762a34f8f2b15a9dc9cf9d7972f463e3daafde66b831694cd637a3ab",
+        "affectsGlobalScope": false
+      },
       "../src/middlewares/corsorigin.ts": {
         "version": "03e0d0604ae850e14bf742b7d7db7b63945f9e57671606c5a295763e43d641d8",
         "signature": "8a9edaa32e8a332281be7b9c08ba9c1f406bd31cb66e948ab0ae8c1b6e3716dd",
@@ -6005,16 +6095,6 @@
         "version": "40cc8baae23bc13c73f82185f29f9c1dd37bc46aa2ef623e594fbe6eaf8871b1",
         "signature": "40cc8baae23bc13c73f82185f29f9c1dd37bc46aa2ef623e594fbe6eaf8871b1",
         "affectsGlobalScope": true
-      },
-      "../node_modules/slugify/slugify.d.ts": {
-        "version": "2d526d2a2d6dfd1980fb6eaf7aa668c24d339e27b41cac2a72efc75abe301b35",
-        "signature": "2d526d2a2d6dfd1980fb6eaf7aa668c24d339e27b41cac2a72efc75abe301b35",
-        "affectsGlobalScope": false
-      },
-      "../src/utils/utils.ts": {
-        "version": "b8d6a8728f8fe9ffffcf9f3750e34955d317b31505f2d9354752c730b8aefa29",
-        "signature": "a9aabeaccd24095a804718afa25265a4eef91d43c0d311aa1f11dfd463418d1c",
-        "affectsGlobalScope": false
       },
       "../node_modules/@babel/types/lib/index.d.ts": {
         "version": "2ff9995137f3e5d68971388ec58af0c79721626323884513f9f5e2e996ac1fdd",
@@ -8613,6 +8693,61 @@
       "../node_modules/dayjs/locale/index.d.ts": [
         "../node_modules/dayjs/locale/types.d.ts"
       ],
+      "../node_modules/ethereumjs-util/dist/@types/ethjs-util/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/account.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/address.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/bytes.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/constants.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/externals.d.ts": [
+        "../node_modules/rlp/dist/index.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/hash.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/rlp/dist/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/index.d.ts": [
+        "../node_modules/ethereumjs-util/dist/@types/ethjs-util/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/account.d.ts",
+        "../node_modules/ethereumjs-util/dist/address.d.ts",
+        "../node_modules/ethereumjs-util/dist/bytes.d.ts",
+        "../node_modules/ethereumjs-util/dist/constants.d.ts",
+        "../node_modules/ethereumjs-util/dist/externals.d.ts",
+        "../node_modules/ethereumjs-util/dist/hash.d.ts",
+        "../node_modules/ethereumjs-util/dist/object.d.ts",
+        "../node_modules/ethereumjs-util/dist/signature.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/signature.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/types.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/address.d.ts",
+        "../node_modules/ethereumjs-util/dist/bytes.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/node_modules/@types/bn.js/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
       "../node_modules/ethers/lib/ethers.d.ts": [
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
@@ -9209,6 +9344,14 @@
       ],
       "../node_modules/protobufjs/minimal.d.ts": [
         "../node_modules/protobufjs/index.d.ts"
+      ],
+      "../node_modules/rlp/dist/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/rlp/dist/types.d.ts"
+      ],
+      "../node_modules/rlp/dist/types.d.ts": [
+        "../node_modules/@types/bn.js/index.d.ts",
+        "../node_modules/@types/node/index.d.ts"
       ],
       "../node_modules/rxjs/index.d.ts": [
         "../node_modules/rxjs/internal/asyncsubject.d.ts",
@@ -10897,6 +11040,13 @@
         "../node_modules/@nestjs/config/index.d.ts",
         "../node_modules/graphql-request/dist/index.d.ts"
       ],
+      "../src/guards/walletsignature.guard.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/core/index.d.ts",
+        "../src/modules/users/users.repository.ts",
+        "../src/utils/logger.ts",
+        "../src/utils/web3helper.ts"
+      ],
       "../src/main.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
         "../node_modules/@nestjs/config/index.d.ts",
@@ -10985,6 +11135,9 @@
       "../src/types/cachemanagerredisstore.d.ts": [
         "../node_modules/@nestjs/common/cache/interfaces/cache-manager.interface.d.ts"
       ],
+      "../src/utils/cryptographer.ts": [
+        "../node_modules/ethereumjs-util/dist/index.d.ts"
+      ],
       "../src/utils/logger.ts": [
         "../node_modules/@google-cloud/logging-winston/build/src/index.d.ts",
         "../node_modules/winston/index.d.ts"
@@ -10994,7 +11147,11 @@
         "../node_modules/slugify/slugify.d.ts"
       ],
       "../src/utils/web3helper.ts": [
-        "../node_modules/web3/types/index.d.ts"
+        "../node_modules/dayjs/index.d.ts",
+        "../node_modules/web3/types/index.d.ts",
+        "../src/utils/cryptographer.ts",
+        "../src/utils/logger.ts",
+        "../src/utils/utils.ts"
       ],
       "../src/web-socket/listener/init.listener.ts": [
         "../node_modules/@nestjs/common/index.d.ts",
@@ -13373,6 +13530,61 @@
       "../node_modules/dayjs/locale/index.d.ts": [
         "../node_modules/dayjs/locale/types.d.ts"
       ],
+      "../node_modules/ethereumjs-util/dist/@types/ethjs-util/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/account.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/address.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/bytes.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/constants.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/externals.d.ts": [
+        "../node_modules/rlp/dist/index.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/hash.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/rlp/dist/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/index.d.ts": [
+        "../node_modules/ethereumjs-util/dist/@types/ethjs-util/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/account.d.ts",
+        "../node_modules/ethereumjs-util/dist/address.d.ts",
+        "../node_modules/ethereumjs-util/dist/bytes.d.ts",
+        "../node_modules/ethereumjs-util/dist/constants.d.ts",
+        "../node_modules/ethereumjs-util/dist/externals.d.ts",
+        "../node_modules/ethereumjs-util/dist/hash.d.ts",
+        "../node_modules/ethereumjs-util/dist/object.d.ts",
+        "../node_modules/ethereumjs-util/dist/signature.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/signature.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/types.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/dist/types.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/ethereumjs-util/dist/address.d.ts",
+        "../node_modules/ethereumjs-util/dist/bytes.d.ts",
+        "../node_modules/web3-eth-abi/node_modules/@types/bn.js/index.d.ts"
+      ],
+      "../node_modules/ethereumjs-util/node_modules/@types/bn.js/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts"
+      ],
       "../node_modules/ethers/lib/ethers.d.ts": [
         "../node_modules/@ethersproject/contracts/lib/index.d.ts",
         "../node_modules/@ethersproject/providers/lib/index.d.ts",
@@ -13969,6 +14181,14 @@
       ],
       "../node_modules/protobufjs/minimal.d.ts": [
         "../node_modules/protobufjs/index.d.ts"
+      ],
+      "../node_modules/rlp/dist/index.d.ts": [
+        "../node_modules/@types/node/index.d.ts",
+        "../node_modules/rlp/dist/types.d.ts"
+      ],
+      "../node_modules/rlp/dist/types.d.ts": [
+        "../node_modules/@types/bn.js/index.d.ts",
+        "../node_modules/@types/node/index.d.ts"
       ],
       "../node_modules/rxjs/index.d.ts": [
         "../node_modules/rxjs/internal/asyncsubject.d.ts",
@@ -15626,6 +15846,11 @@
       ],
       "../src/graph/graph.client.ts": [
         "../node_modules/@nestjs/config/index.d.ts"
+      ],
+      "../src/guards/walletsignature.guard.ts": [
+        "../node_modules/@nestjs/common/index.d.ts",
+        "../node_modules/@nestjs/core/index.d.ts",
+        "../src/modules/users/users.repository.ts"
       ],
       "../src/modules/nfts/nfts.controller.ts": [
         "../src/modules/nfts/nfts.dto.ts",

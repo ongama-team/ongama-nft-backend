@@ -37,6 +37,7 @@ if (process.env.NODE_EN === 'production') {
 const isProd = process.env.NODE_EN === 'production';
 const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
 
+console.log("HIDUDE", redisOptions);
 @Module({
   imports: [
     CacheModule.register({
