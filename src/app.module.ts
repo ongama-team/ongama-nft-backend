@@ -27,7 +27,11 @@ const providers: any = [
   UsersRepository,
 ];
 
-if (process.env.NODE_EN === 'production') {
+const isProd = process.env.NODE_EN === 'production';
+
+const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
+
+if (isProd) {
   providers.push({
     provide: APP_INTERCEPTOR,
     useClass: CacheInterceptor,
@@ -38,8 +42,7 @@ if (process.env.NODE_EN === 'production') {
   imports: [
     CacheModule.register({
       store: redisStore,
-      host: 'localhost',
-      port: 6379,
+      ...redisOptions,
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',
