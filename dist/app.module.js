@@ -68,8 +68,9 @@ AppModule = __decorate([
         imports: [
             common_1.CacheModule.register({
                 store: redisStore,
-                host: 'localhost',
-                port: 6379,
+                host: process.env.REDIS_HOST ? process.env.REDIS_HOST : 'localhost',
+                port: process.env.REDIS_HOST ? parseInt(process.env.REDIS_PORT) : 6379,
+                auth_pass: process.env.REDIS_PASS ? process.env.REDIS_PASS : '',
             }),
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',

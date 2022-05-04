@@ -38,8 +38,9 @@ if (process.env.NODE_EN === 'production') {
   imports: [
     CacheModule.register({
       store: redisStore,
-      host: 'localhost',
-      port: 6379,
+      host: process.env.REDIS_HOST ? process.env.REDIS_HOST : 'localhost',
+      port: process.env.REDIS_HOST ? parseInt(process.env.REDIS_PORT) : 6379,
+      auth_pass: process.env.REDIS_PASS ? process.env.REDIS_PASS : '',
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',
