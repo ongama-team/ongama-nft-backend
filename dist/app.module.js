@@ -61,6 +61,7 @@ if (process.env.NODE_EN === 'production') {
         useClass: common_1.CacheInterceptor,
     });
 }
+console.log(process.env.REDIS_HOST, ' | ', process.env.REDIS_PORT, ' | ', process.env.REDIS_PASS);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -68,9 +69,11 @@ AppModule = __decorate([
         imports: [
             common_1.CacheModule.register({
                 store: redisStore,
-                host: process.env.REDIS_HOST ? process.env.REDIS_HOST : 'localhost',
-                port: process.env.REDIS_HOST ? parseInt(process.env.REDIS_PORT) : 6379,
-                auth_pass: process.env.REDIS_PASS ? process.env.REDIS_PASS : '',
+                host: process.env.REDIS_HOST || 'localhost',
+                port: process.env.REDIS_PORT || 6379,
+                auth_pass: process.env.REDIS_PASS || '',
+                db: 0,
+                ttl: 600
             }),
             config_1.ConfigModule.forRoot({
                 envFilePath: '.env',

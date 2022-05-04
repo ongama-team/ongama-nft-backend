@@ -34,13 +34,16 @@ if (process.env.NODE_EN === 'production') {
   });
 }
 
+console.log(process.env.REDIS_HOST, ' | ', process.env.REDIS_PORT, ' | ',process.env.REDIS_PASS);
 @Module({
   imports: [
     CacheModule.register({
       store: redisStore,
-      host: process.env.REDIS_HOST ? process.env.REDIS_HOST : 'localhost',
-      port: process.env.REDIS_HOST ? parseInt(process.env.REDIS_PORT) : 6379,
-      auth_pass: process.env.REDIS_PASS ? process.env.REDIS_PASS : '',
+      host: process.env.REDIS_HOST || 'localhost',
+      port: process.env.REDIS_PORT || 6379,
+      auth_pass: process.env.REDIS_PASS || '',
+      db: 0,
+      ttl: 600
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',
