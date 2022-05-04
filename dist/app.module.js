@@ -55,13 +55,13 @@ const providers = [
     nfts_repository_1.NftRepository,
     users_repository_1.UsersRepository,
 ];
-if (process.env.NODE_EN === 'production') {
+if (process.env.NODE_ENV === 'production') {
     providers.push({
         provide: core_1.APP_INTERCEPTOR,
         useClass: common_1.CacheInterceptor,
     });
 }
-const isProd = process.env.NODE_EN === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
 console.log("HIDUDE", redisOptions);
 let AppModule = class AppModule {

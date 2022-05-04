@@ -27,14 +27,14 @@ const providers: any = [
   UsersRepository,
 ];
 
-if (process.env.NODE_EN === 'production') {
+if (process.env.NODE_ENV === 'production') {
   providers.push({
     provide: APP_INTERCEPTOR,
     useClass: CacheInterceptor,
   });
 }
 
-const isProd = process.env.NODE_EN === 'production';
+const isProd = process.env.NODE_ENV === 'production';
 const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
 
 console.log("HIDUDE", redisOptions);
