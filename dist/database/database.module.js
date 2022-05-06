@@ -20,6 +20,12 @@ DatabaseModule = __decorate([
                 inject: [config_1.ConfigService],
                 useFactory: (configService) => ({
                     type: 'postgres',
+                    ssl: true,
+                    extra: {
+                        ssl: {
+                            rejectUnauthorized: false
+                        }
+                    },
                     host: configService.get('POSTGRES_HOST'),
                     port: configService.get('POSTGRES_PORT'),
                     username: configService.get('POSTGRES_USER'),

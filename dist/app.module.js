@@ -62,7 +62,7 @@ if (process.env.NODE_ENV === 'production') {
     });
 }
 const isProd = process.env.NODE_ENV === 'production';
-const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
+const redisOptions = isProd ? { url: process.env.REDIS_URL.toString() } : { host: 'localhost', port: 6379 };
 console.log("HIDUDE", redisOptions);
 let AppModule = class AppModule {
 };
