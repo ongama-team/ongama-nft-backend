@@ -16,13 +16,13 @@ export class User {
   usernameLowercase: string;
 
   @Column({ nullable: true, type: 'varchar' })
-  userAvatarUrl: string;
+  avatarUrl: string;
 
   @Column({ nullable: true, type: 'varchar' })
-  userAvatarUrlThumbnail: string;
+  avatarUrlThumbnail: string;
 
   @Column({ nullable: true, type: 'varchar' })
-  userAvatarUrlCompressed: string;
+  avatarUrlCompressed: string;
 
   @Column({ nullable: true, type: 'varchar' })
   coverUrl: string;
