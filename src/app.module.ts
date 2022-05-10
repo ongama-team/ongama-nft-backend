@@ -17,6 +17,7 @@ import { NftsService } from './modules/nfts/nfts.service';
 import { NftRepository } from './modules/nfts/nfts.repository';
 import { UsersRepository } from './modules/users/users.repository';
 
+const isProd = process.env.NODE_ENV === 'production';
 const providers: any = [
   AppService,
   WebSocketListener,
@@ -34,10 +35,8 @@ if (process.env.NODE_ENV === 'production') {
   });
 }
 
-const isProd = process.env.NODE_ENV === 'production';
 const redisOptions = isProd ? { url: process.env.REDIS_URL.toString() } : { host: 'localhost', port: 6379 };
 
-console.log("HIDUDE", redisOptions);
 @Module({
   imports: [
     CacheModule.register({
