@@ -17,6 +17,7 @@ import { NftsService } from './modules/nfts/nfts.service';
 import { NftRepository } from './modules/nfts/nfts.repository';
 import { UsersRepository } from './modules/users/users.repository';
 
+const isProd = process.env.NODE_ENV === 'production';
 const providers: any = [
   AppService,
   WebSocketListener,
@@ -27,22 +28,20 @@ const providers: any = [
   UsersRepository,
 ];
 
-const isProd = process.env.NODE_EN === 'production';
-
-const redisOptions = isProd ? { url: process.env.REDIS_URL } : { host: 'localhost', port: 6379 };
-
-if (isProd) {
+if (process.env.NODE_ENV === 'production') {
   providers.push({
     provide: APP_INTERCEPTOR,
     useClass: CacheInterceptor,
   });
 }
 
+const redisOptions = isProd ? { url: process.env.REDIS_URL.toString() } : { host: 'localhost', port: 6379 };
+
 @Module({
   imports: [
     CacheModule.register({
       store: redisStore,
-      ...redisOptions,
+      ...redisOptions
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',
