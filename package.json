@@ -36,7 +36,7 @@
     "@nestjs/core": "^7.6.15",
     "@nestjs/platform-express": "^7.6.15",
     "@nestjs/schedule": "^1.0.1",
-    "@nestjs/swagger": "5.2.1",
+    "@nestjs/swagger": "4.8.2",
     "@nestjs/typeorm": "7.1.5",
     "@sentry/node": "6.8.0",
     "async": "3.2.0",
