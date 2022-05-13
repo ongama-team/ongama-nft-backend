@@ -1,7 +1,7 @@
 import { Controller, Post, Body, Req, BadRequestException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { NftsService } from './nfts.service';
-import { CreateNFTDto } from './nfts.dto';
+import { CreateNFTDto, TransferNFTDto } from './nfts.dto';
 
 import { UsersService } from '../users/users.service';
 
