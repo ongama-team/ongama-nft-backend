@@ -35,7 +35,7 @@ export default class NftTransferListener {
           to: transactionReceipt.to,
           from: transactionReceipt.from,
         });
-        throw new BadRequestException('FAILED_VALIDATING_TRANSFER: Mint request could not be validated');
+        throw new BadRequestException('FAILED_VALIDATING_TRANSFER: Transfer request could not be validated');
       }
       if (!transactionReceipt.blockHash || !transactionReceipt.blockNumber || !transactionReceipt.status) {
         logger.warn('Transaction failed or might still be pending', {
@@ -55,21 +55,20 @@ export default class NftTransferListener {
 
         // We create the user
         receiverUser = await this.userService.saveNewUser({
-          walletAddress: to,
+          walletAddress: Web3Helper.getAddressChecksum(to),
         });
       }
 
       // -- Update the NFT's new owner. & Set listed = false
-      nft.owner = receiverUser;
-      nft.ownerId = receiverUser.id;
-      nft.ownerAddress = receiverUser.walletAddress;
-      nft.ownerUsername = receiverUser.username;
-      nft.listed = false;
-      nft.listedOnChain = false;
-
       await Promise.all([
-        await this.nftService.updateToken(nft.id, nft),
-        await this.userService.increment({ id: nft.ownerId, column: 'nftsCount' }),
+        await this.nftService.updateToken(nft.id, {
+          ...nft,
+          ownerId: receiverUser.id,
+          ownerAddress: receiverUser.walletAddress,
+          ownerUsername: receiverUser.username,
+          listed: false,
+          listedOnChain: false,
+        }),
       ]);
     });
   }

@@ -97,16 +97,3 @@ export class UpdateNftTokenDto {
   @IsString()
   mintTransactionHash: string;
 }
-
-export class TransferNFTDto {
-  @IsString()
-  @IsOptional()
-  from: string;
-
-  @IsString()
-  @IsOptional()
-  to: string;
-
-  @IsString()
-  tokenID: string;
-}
