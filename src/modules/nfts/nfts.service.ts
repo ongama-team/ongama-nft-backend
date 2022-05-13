@@ -68,6 +68,10 @@ export class NftsService {
     return this.nftsRepository.findOne(tokenUri);
   }
 
+  findByTokenID(tokenID: number): Promise<Nft> {
+    return this.nftsRepository.findOne({ where: { tokenID }, relations: ['owner'] });
+  }
+
   updateToken(id: number, data: Partial<Nft>): Promise<UpdateResult> {
     return this.nftsRepository.update(id, {
       ...data,
