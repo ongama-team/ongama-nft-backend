@@ -31,7 +31,7 @@ export class User {
   coverThumbnailUrl: string;
 
   @Column({ nullable: true, type: 'varchar' })
-  userBio: string;
+  bio: string;
 
   @Column({ nullable: true, type: 'boolean', default: false })
   banned: boolean;
