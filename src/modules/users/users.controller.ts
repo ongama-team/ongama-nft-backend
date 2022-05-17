@@ -1,13 +1,13 @@
 import { Controller, Get, Param, Put, Body, CacheTTL, UseGuards, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-// import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
+import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto, CreateUserDto } from './users.dto';
 
 @ApiTags('users')
 @Controller('users')
-// @UseGuards(WalletSignatureGuard)
+@UseGuards(WalletSignatureGuard)
 export class UsersController {
   constructor(private readonly userService: UsersService, private readonly nftService: NftsService) {}
 
@@ -33,42 +33,6 @@ export class UsersController {
       coverUrl,
       usernameLowercase,
     } = data;
-    // const { polyglot } = req;
-
-    // const checksumAddress = Web3Helper.getAddressChecksum(userData.walletAddress);
-
-    // const foundUser = await this.userService.findByAddress(checksumAddress);
-
-    // if (!checksumAddress || !foundUser) {
-    //   throw new BadRequestException(polyglot.t('Could not update user data - Error logged'));
-    // }
-
-    // if (
-    //   !(await validateWalletSignature({
-    //     data: userData,
-    //     walletAddress: userData.walletAddress,
-    //     signature: userData.signature,
-    //   }))
-    // ) {
-    //   throw new BadRequestException(polyglot.t('Could not update user data - Error logged'));
-    // }
-
-    // if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
-    //   const newFoundUser = await this.userService.findByUsername(userData.username);
-
-    //   if (newFoundUser && foundUser.walletAddress !== newFoundUser.walletAddress) {
-    //     throw new BadRequestException(
-    //       polyglot.t('Username is already taken: %{username} - %{address} Attempt', {
-    //         username: userData.username,
-    //         address: userData.walletAddress,
-    //       }),
-    //     );
-    //   }
-    // }
-
-    // if (userData.signature) {
-    //   delete userData.signature;
-    // }
 
     await this.userService.updateById(id, {
       username,

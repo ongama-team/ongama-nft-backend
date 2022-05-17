@@ -1,4 +1,4 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class UserDto {
   readonly walletAddress: string;
@@ -42,7 +42,7 @@ export class CreateUserDto {
 }
 
 export class UserUpdateProfileDto {
-  @IsString()
+  @IsNumber()
   readonly id: number;
 
   @IsString()
