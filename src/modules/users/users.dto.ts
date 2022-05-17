@@ -38,7 +38,7 @@ export class CreateUserDto {
 
   @IsString()
   @IsOptional()
-  bio?: string;
+  userBio?: string;
 }
 
 export class UserUpdateProfileDto {
@@ -58,7 +58,7 @@ export class UserUpdateProfileDto {
 
   @IsString()
   @IsOptional()
-  readonly bio: string;
+  readonly userBio: string;
 
   @IsString()
   @IsOptional()

@@ -1,19 +1,19 @@
 import { Controller, Get, Param, Put, Body, CacheTTL, UseGuards, Post } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
-import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
+// import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto, CreateUserDto } from './users.dto';
 
 @ApiTags('users')
 @Controller('users')
-@UseGuards(WalletSignatureGuard)
+// @UseGuards(WalletSignatureGuard)
 export class UsersController {
   constructor(private readonly userService: UsersService, private readonly nftService: NftsService) {}
 
   @Post('/createUser')
   async saveNewUser(@Body() data: CreateUserDto) {
-    await this.saveNewUser(data);
+    await this.userService.saveNewUser(data);
 
     return {
       statusCode: 200,
@@ -25,7 +25,7 @@ export class UsersController {
     const {
       id,
       username,
-      bio,
+      userBio,
       avatarUrl,
       avatarUrlCompressed,
       avatarUrlThumbnail,
@@ -72,7 +72,7 @@ export class UsersController {
 
     await this.userService.updateById(id, {
       username,
-      bio,
+      userBio,
       avatarUrl,
       avatarUrlCompressed,
       avatarUrlThumbnail,
@@ -94,7 +94,7 @@ export class UsersController {
     if (!user) {
       user = await this.userService.saveNewUser({
         avatarUrl: '',
-        bio: '',
+        userBio: '',
         username: '',
         walletAddress: addressOrUsername,
       });
