@@ -1,6 +1,7 @@
 import { Controller, Get, Req, Param, Put, Body, BadRequestException, CacheTTL } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
+import { isValidAddress } from 'src/utils/Utils';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto } from './users.dto';
@@ -76,8 +77,12 @@ export class UsersController {
     let user = await this.userService.findByAddress(addressOrUsername);
 
     if (!user) {
+      const valid = isValidAddress(addressOrUsername);
+      if (!valid) {
+        throw new BadRequestException('The address or username is not valid');
+      }
       user = await this.userService.saveNewUser({
-        userAvatarUrl: '',
+        avatarUrl: '',
         userBio: '',
         username: '',
         walletAddress: addressOrUsername,
