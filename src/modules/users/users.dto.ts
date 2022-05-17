@@ -4,7 +4,47 @@ export class UserDto {
   readonly walletAddress: string;
 }
 
+export class CreateUserDto {
+  @IsString()
+  walletAddress: string;
+
+  @IsString()
+  @IsOptional()
+  username?: string;
+
+  @IsString()
+  @IsOptional()
+  usernameLowercase?: string;
+
+  @IsString()
+  @IsOptional()
+  avatarUrl?: string;
+
+  @IsString()
+  @IsOptional()
+  avatarUrlThumbnail?: string;
+
+  @IsString()
+  @IsOptional()
+  avatarUrlCompressed?: string;
+
+  @IsString()
+  @IsOptional()
+  coverUrl?: string;
+
+  @IsString()
+  @IsOptional()
+  coverThumbnailUrl?: string;
+
+  @IsString()
+  @IsOptional()
+  userBio?: string;
+}
+
 export class UserUpdateProfileDto {
+  @IsString()
+  readonly id: number;
+
   @IsString()
   readonly walletAddress: string;
 
@@ -14,19 +54,23 @@ export class UserUpdateProfileDto {
 
   @IsString()
   @IsOptional()
+  readonly usernameLowercase?: string;
+
+  @IsString()
+  @IsOptional()
   readonly userBio: string;
 
   @IsString()
   @IsOptional()
-  readonly userAvatarUrl?: string;
+  readonly avatarUrl?: string;
 
   @IsString()
   @IsOptional()
-  readonly userAvatarUrlCompressed?: string;
+  readonly avatarUrlCompressed?: string;
 
   @IsString()
   @IsOptional()
-  readonly userAvatarUrlThumbnail?: string;
+  readonly avatarUrlThumbnail?: string;
 
   @IsString()
   @IsOptional()
@@ -35,22 +79,6 @@ export class UserUpdateProfileDto {
   @IsString()
   @IsOptional()
   readonly coverThumbnailUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly socialUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly twitterUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly instagramUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly facebookUrl?: string;
 
   @IsString()
   signature?: string;
