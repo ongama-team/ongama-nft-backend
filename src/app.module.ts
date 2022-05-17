@@ -16,6 +16,7 @@ import NftCreatedListener from './web-socket/listener/nft-created.listener';
 import { NftsService } from './modules/nfts/nfts.service';
 import { NftRepository } from './modules/nfts/nfts.repository';
 import { UsersRepository } from './modules/users/users.repository';
+import NftTransferListener from './web-socket/listener/nft-transfer.listener';
 
 const isProd = process.env.NODE_ENV === 'production';
 const providers: any = [
@@ -23,6 +24,7 @@ const providers: any = [
   WebSocketListener,
   InitListener,
   NftCreatedListener,
+  NftTransferListener,
   NftsService,
   NftRepository,
   UsersRepository,
@@ -41,7 +43,7 @@ const redisOptions = isProd ? { url: process.env.REDIS_URL.toString() } : { host
   imports: [
     CacheModule.register({
       store: redisStore,
-      ...redisOptions
+      ...redisOptions,
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',
