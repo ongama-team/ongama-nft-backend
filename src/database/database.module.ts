@@ -2,6 +2,8 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 
+const isProd = process.env.NODE_ENV === 'production';
+
 @Module({
   imports: [
     TypeOrmModule.forRootAsync({
@@ -9,12 +11,6 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
       inject: [ConfigService],
       useFactory: (configService: ConfigService) => ({
         type: 'postgres',
-        ssl: true,
-        extra: {
-            ssl: {
-                rejectUnauthorized: false
-            }
-        },
         host: configService.get('POSTGRES_HOST'),
         port: configService.get('POSTGRES_PORT'),
         username: configService.get('POSTGRES_USER'),
@@ -23,6 +19,16 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
         entities: [`${__dirname}/../**/*.entity.*`],
         // logging: process.env.NODE !== 'production',
         synchronize: false,
+        ...(isProd
+          ? {
+              ssl: true,
+              extra: {
+                ssl: {
+                  rejectUnauthorized: false,
+                },
+              },
+            }
+          : {}),
       }),
     }),
   ],

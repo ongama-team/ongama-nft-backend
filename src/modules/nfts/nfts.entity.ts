@@ -95,7 +95,7 @@ export class Nft {
   @JoinColumn()
   creator: User;
 
-  @ManyToOne(() => User, (creator: User) => creator.nftsOwned)
+  @ManyToOne(() => User, (owner: User) => owner.nftsOwned)
   @JoinColumn()
   owner: User;
 
