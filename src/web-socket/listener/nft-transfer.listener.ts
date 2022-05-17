@@ -69,6 +69,7 @@ export default class NftTransferListener {
           listed: false,
           listedOnChain: false,
         }),
+        await this.userService.increment({ id: nft.creator.id, column: 'nftsOwnCount' }),
       ]);
     });
   }
