@@ -15,7 +15,7 @@ export class createUsersTable1651143888123 implements MigrationInterface {
                     "avatarUrlCompressed" varchar,
                     "coverUrl" varchar,
                     "coverThumbnailUrl" varchar,
-                    "userBio" varchar,
+                    "bio" varchar,
                     "nftsCount" int4 DEFAULT 0,
                     "buysCount" int4 DEFAULT 0,
                     "salesCount" int4 DEFAULT 0,
