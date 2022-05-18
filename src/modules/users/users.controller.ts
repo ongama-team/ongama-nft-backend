@@ -1,9 +1,10 @@
-import { Controller, Get, Param, Put, Body, CacheTTL, UseGuards, Post } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, CacheTTL, UseGuards, BadRequestException } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
+import { isValidAddress } from 'src/utils/Utils';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
-import { UserUpdateProfileDto, CreateUserDto } from './users.dto';
+import { UserUpdateProfileDto } from './users.dto';
 
 @ApiTags('users')
 @Controller('users')
@@ -11,39 +12,10 @@ import { UserUpdateProfileDto, CreateUserDto } from './users.dto';
 export class UsersController {
   constructor(private readonly userService: UsersService, private readonly nftService: NftsService) {}
 
-  @Post('/createUser')
-  async saveNewUser(@Body() data: CreateUserDto) {
-    await this.userService.saveNewUser(data);
-
-    return {
-      statusCode: 200,
-    };
-  }
-
   @Put('/profile')
   async updateProfile(@Body() data: UserUpdateProfileDto) {
-    const {
-      id,
-      username,
-      userBio,
-      avatarUrl,
-      avatarUrlCompressed,
-      avatarUrlThumbnail,
-      coverThumbnailUrl,
-      coverUrl,
-      usernameLowercase,
-    } = data;
-
-    await this.userService.updateById(id, {
-      username,
-      userBio,
-      avatarUrl,
-      avatarUrlCompressed,
-      avatarUrlThumbnail,
-      coverUrl,
-      coverThumbnailUrl,
-      usernameLowercase,
-    });
+    delete data.signature;
+    await this.userService.updateById(data.id, data);
 
     return {
       statusCode: 200,
@@ -56,6 +28,10 @@ export class UsersController {
     let user = await this.userService.findByAddress(addressOrUsername);
 
     if (!user) {
+      const valid = isValidAddress(addressOrUsername);
+      if (!valid) {
+        throw new BadRequestException('The address or username is not valid');
+      }
       user = await this.userService.saveNewUser({
         avatarUrl: '',
         userBio: '',

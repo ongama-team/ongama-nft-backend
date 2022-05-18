@@ -4,43 +4,6 @@ export class UserDto {
   readonly walletAddress: string;
 }
 
-export class CreateUserDto {
-  @IsString()
-  walletAddress: string;
-
-  @IsString()
-  @IsOptional()
-  username?: string;
-
-  @IsString()
-  @IsOptional()
-  usernameLowercase?: string;
-
-  @IsString()
-  @IsOptional()
-  avatarUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  avatarUrlThumbnail?: string;
-
-  @IsString()
-  @IsOptional()
-  avatarUrlCompressed?: string;
-
-  @IsString()
-  @IsOptional()
-  coverUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  coverThumbnailUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  userBio?: string;
-}
-
 export class UserUpdateProfileDto {
   @IsNumber()
   readonly id: number;
