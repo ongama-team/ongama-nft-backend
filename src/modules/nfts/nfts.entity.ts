@@ -7,6 +7,7 @@ import {
   ManyToOne,
   JoinColumn,
 } from 'typeorm';
+import { NftDrop } from '../nfts-drops/nfts-drops.entity';
 import { User } from '../users/users.entity';
 @Entity('nfts')
 export class Nft {
@@ -98,6 +99,10 @@ export class Nft {
   @ManyToOne(() => User, (owner: User) => owner.nftsOwned)
   @JoinColumn()
   owner: User;
+
+  @ManyToOne(() => NftDrop, (drop: NftDrop) => drop.nfts)
+  @JoinColumn()
+  drop: NftDrop;
 
   @CreateDateColumn({
     default: () => new Date(),
