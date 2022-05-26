@@ -17,6 +17,7 @@ import { NftsService } from './modules/nfts/nfts.service';
 import { NftRepository } from './modules/nfts/nfts.repository';
 import { UsersRepository } from './modules/users/users.repository';
 import NftTransferListener from './web-socket/listener/nft-transfer.listener';
+import { NftsDropsModule } from './modules/nfts-drops/nfts-drops.module';
 
 const isProd = process.env.NODE_ENV === 'production';
 const providers: any = [
@@ -61,12 +62,16 @@ const redisOptions = isProd ? { url: process.env.REDIS_URL.toString() } : { host
         DEPLOYER_ADDRESS: Joi.string().required(),
         SUBGRAPH_GRAPHQL_ENDPOINT: Joi.string().required(),
         WEB3_NODE_RPC: Joi.string().required(),
+        MAX_NFT_IN_DROP: Joi.number().required(),
+        DROP_DEFAULT_ACTIVE_DURATION_DAYS: Joi.number().required(),
+        DROP_CREATION_FEE_IN_MATIC: Joi.number().required(),
       }),
     }),
     ScheduleModule.forRoot(),
     DatabaseModule,
     UsersModule,
     NftsModule,
+    NftsDropsModule,
   ],
   controllers: [AppController],
   providers,

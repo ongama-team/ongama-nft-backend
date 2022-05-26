@@ -1,75 +1,63 @@
-import { Controller, Get, Req, Param, Put, Body, BadRequestException, CacheTTL } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, BadRequestException, CacheTTL, UseGuards } from '@nestjs/common';
 
 import { ApiTags } from '@nestjs/swagger';
 import { isValidAddress } from 'src/utils/Utils';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto } from './users.dto';
+import { Web3Helper } from '../../utils/web3Helper';
+import { WalletSignatureGuard } from '../../guards/walletSignature.guard';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
   constructor(private readonly userService: UsersService, private readonly nftService: NftsService) {}
 
-  // @Put('/profile')
-  // async updateProfile(@Body() userData: UserUpdateProfileDto, @Req() req, @Headers('cf-ipcountry') countryISO) {
-  //   const { polyglot } = req;
+  @UseGuards(WalletSignatureGuard)
+  @Put('/profile')
+  async updateProfile(@Body() userData: UserUpdateProfileDto) {
+    const checksumAddress = Web3Helper.getAddressChecksum(userData.walletAddress);
 
-  //   const checksumAddress = Web3Helper.getAddressChecksum(userData.walletAddress);
+    const foundUser = await this.userService.findByAddress(checksumAddress);
 
-  //   const foundUser = await this.userService.findByAddress(checksumAddress);
+    if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
+      const newFoundUser = await this.userService.findByUsername(userData.username);
 
-  //   if (!checksumAddress || !foundUser) {
-  //     throw new BadRequestException(polyglot.t('Could not update user data - Error logged'));
-  //   }
+      if (newFoundUser && foundUser.walletAddress !== newFoundUser.walletAddress) {
+        throw new BadRequestException(
+          'Username is already taken: %{username} - %{address} Attempt',
+          JSON.stringify({
+            username: userData.username,
+            address: userData.walletAddress,
+          }),
+        );
+      }
+    }
 
-  //   if (
-  //     !(await validateWalletSignature({
-  //       data: userData,
-  //       walletAddress: userData.walletAddress,
-  //       signature: userData.signature,
-  //     }))
-  //   ) {
-  //     throw new BadRequestException(polyglot.t('Could not update user data - Error logged'));
-  //   }
+    if (userData.signature) {
+      delete userData.signature;
+    }
 
-  //   if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
-  //     const newFoundUser = await this.userService.findByUsername(userData.username);
+    await this.userService.updateById(foundUser.id, {
+      username: userData?.username || foundUser?.username || null,
+      userBio: userData?.userBio || foundUser?.userBio || null,
+      avatarUrl: userData?.avatarUrl || foundUser?.avatarUrl || null,
+      avatarUrlCompressed: userData?.avatarUrl
+        ? userData?.avatarUrlCompressed || null
+        : foundUser?.avatarUrlCompressed || null,
+      avatarUrlThumbnail: userData?.avatarUrl
+        ? userData?.avatarUrlThumbnail || null
+        : foundUser?.avatarUrlThumbnail || null,
+      coverUrl: userData?.coverUrl ? userData?.coverUrl || null : foundUser?.coverUrl || null,
+      coverThumbnailUrl: userData?.coverThumbnailUrl
+        ? userData?.coverThumbnailUrl || null
+        : foundUser?.coverThumbnailUrl || null,
+      usernameLowercase: (userData?.username || foundUser?.username || '')?.toLocaleLowerCase(),
+    });
 
-  //     if (newFoundUser && foundUser.walletAddress !== newFoundUser.walletAddress) {
-  //       throw new BadRequestException(
-  //         polyglot.t('Username is already taken: %{username} - %{address} Attempt', {
-  //           username: userData.username,
-  //           address: userData.walletAddress,
-  //         }),
-  //       );
-  //     }
-  //   }
-
-  //   if (userData.signature) {
-  //     delete userData.signature;
-  //   }
-
-  //   await this.userService.updateById(foundUser.id, {
-  //     username: userData?.username || foundUser?.username || null,
-  //     userBio: userData?.userBio || foundUser?.userBio || null,
-  //     userAvatarUrl: userData?.userAvatarUrl || foundUser?.userAvatarUrl || null,
-  //     userAvatarUrlCompressed: userData?.userAvatarUrl
-  //       ? userData?.userAvatarUrlCompressed || null
-  //       : foundUser?.userAvatarUrlCompressed || null,
-  //     userAvatarUrlThumbnail: userData?.userAvatarUrl
-  //       ? userData?.userAvatarUrlThumbnail || null
-  //       : foundUser?.userAvatarUrlThumbnail || null,
-  //     coverUrl: userData?.coverUrl ? userData?.coverUrl || null : foundUser?.coverUrl || null,
-  //     coverThumbnailUrl: userData?.coverThumbnailUrl
-  //       ? userData?.coverThumbnailUrl || null
-  //       : foundUser?.coverThumbnailUrl || null,
-  //     usernameLowercase: (userData?.username || foundUser?.username || '')?.toLocaleLowerCase(),
-  //   });
-
-  //   return {
-  //     statusCode: 200,
-  //   };
-  // }
+    return {
+      statusCode: 200,
+    };
+  }
 
   @CacheTTL(60)
   @Get('/:addressOrUsername')
@@ -77,8 +65,7 @@ export class UsersController {
     let user = await this.userService.findByAddress(addressOrUsername);
 
     if (!user) {
-      const valid = isValidAddress(addressOrUsername);
-      if (!valid) {
+      if (!isValidAddress(addressOrUsername)) {
         throw new BadRequestException('The address or username is not valid');
       }
       user = await this.userService.saveNewUser({

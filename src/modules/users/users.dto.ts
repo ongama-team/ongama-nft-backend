@@ -18,15 +18,15 @@ export class UserUpdateProfileDto {
 
   @IsString()
   @IsOptional()
-  readonly userAvatarUrl?: string;
+  readonly avatarUrl?: string;
 
   @IsString()
   @IsOptional()
-  readonly userAvatarUrlCompressed?: string;
+  readonly avatarUrlCompressed?: string;
 
   @IsString()
   @IsOptional()
-  readonly userAvatarUrlThumbnail?: string;
+  readonly avatarUrlThumbnail?: string;
 
   @IsString()
   @IsOptional()
