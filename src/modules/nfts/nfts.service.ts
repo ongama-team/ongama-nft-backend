@@ -1,4 +1,4 @@
-import { Repository, UpdateResult } from 'typeorm';
+import { LessThanOrEqual, MoreThanOrEqual, Repository, UpdateResult } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -6,7 +6,7 @@ import dayjs from 'dayjs';
 import { Nft } from './nfts.entity';
 
 import { UsersRepository } from '../users/users.repository';
-import { CreateNFTDto } from './nfts.dto';
+import { CreateNFTDto, NftGetAllQuery } from './nfts.dto';
 import { UsersService } from '../users/users.service';
 
 @Injectable()
@@ -62,6 +62,32 @@ export class NftsService {
     nft.active = true;
 
     return this.nftsRepository.save(nft);
+  }
+
+  find(params: NftGetAllQuery): Promise<Nft[]> {
+    const take = params.limit || null;
+    const skip = take ? (params.page - 1) * take : 0;
+    const sortBy = {};
+    if (params.sortField && Object.keys(Nft).includes(params.sortField))
+      sortBy[params.sortField] = params.sortOrder.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+
+    // --
+    return this.nftsRepository.find({
+      where: {
+        ...(typeof params.walletAddress !== 'undefined' && params.walletAddress !== null
+          ? { walletAddress: params.walletAddress }
+          : {}),
+        ...(typeof params.maxPrice !== 'undefined' && params.maxPrice !== null
+          ? { price: LessThanOrEqual(params.maxPrice) }
+          : {}),
+        ...(typeof params.minPrice !== 'undefined' && params.minPrice !== null
+          ? { price: MoreThanOrEqual(params.minPrice) }
+          : {}),
+      },
+      order: sortBy,
+      skip,
+      take,
+    });
   }
 
   findByTokenUri(tokenUri: string): Promise<Nft> {

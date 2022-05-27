@@ -1,7 +1,7 @@
-import { Controller, Post, Body, Req, BadRequestException } from '@nestjs/common';
+import { Controller, Post, Body, Req, BadRequestException, Param, Get } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { NftsService } from './nfts.service';
-import { CreateNFTDto } from './nfts.dto';
+import { CreateNFTDto, NftGetAllQuery } from './nfts.dto';
 
 import { UsersService } from '../users/users.service';
 
@@ -9,6 +9,11 @@ import { UsersService } from '../users/users.service';
 @Controller('nfts')
 export class NftsController {
   constructor(private readonly nftService: NftsService, public readonly userService: UsersService) {}
+
+  @Get('/')
+  async getAll(@Param() params: NftGetAllQuery) {
+    return await this.nftService.find(params);
+  }
 
   @Post('/')
   async createNft(@Body() nftData: CreateNFTDto, @Req() req) {
