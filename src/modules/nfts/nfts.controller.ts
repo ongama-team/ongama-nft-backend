@@ -12,7 +12,7 @@ export class NftsController {
 
   @Get('/')
   async getAll(@Param() params: NftGetAllQuery) {
-    return await this.nftService.find(params);
+    return await this.nftService.findFeed(params);
   }
 
   @Post('/')

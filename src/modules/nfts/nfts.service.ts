@@ -1,4 +1,4 @@
-import { LessThanOrEqual, MoreThanOrEqual, Repository, UpdateResult } from 'typeorm';
+import { Between, IsNull, LessThanOrEqual, MoreThanOrEqual, Not, Repository, UpdateResult } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 
@@ -64,30 +64,71 @@ export class NftsService {
     return this.nftsRepository.save(nft);
   }
 
-  find(params: NftGetAllQuery): Promise<Nft[]> {
-    const take = params.limit || null;
-    const skip = take ? (params.page - 1) * take : 0;
-    const sortBy = {};
-    if (params.sortField && Object.keys(Nft).includes(params.sortField))
-      sortBy[params.sortField] = params.sortOrder.toUpperCase() === 'DESC' ? 'DESC' : 'ASC';
+  async findFeed({
+    limit = 12,
+    page = 1,
+    sortField = 'priority',
+    sortOrder = 'desc',
+    minPrice,
+    maxPrice,
+  }: {
+    limit?: number;
+    page?: number;
+    sortField?: string;
+    sortOrder?: string;
+    minPrice?: number;
+    maxPrice?: number;
+  }): Promise<{ nfts: Nft[]; meta: Record<string, number> }> {
+    const where: any = {
+      mintTransactionHash: Not(IsNull()),
+      listed: true,
+    };
 
-    // --
-    return this.nftsRepository.find({
-      where: {
-        ...(typeof params.walletAddress !== 'undefined' && params.walletAddress !== null
-          ? { walletAddress: params.walletAddress }
-          : {}),
-        ...(typeof params.maxPrice !== 'undefined' && params.maxPrice !== null
-          ? { price: LessThanOrEqual(params.maxPrice) }
-          : {}),
-        ...(typeof params.minPrice !== 'undefined' && params.minPrice !== null
-          ? { price: MoreThanOrEqual(params.minPrice) }
-          : {}),
+    if (minPrice && !maxPrice) {
+      where.price = MoreThanOrEqual(minPrice);
+    }
+
+    if (maxPrice && !minPrice) {
+      where.price = LessThanOrEqual(maxPrice);
+    }
+
+    if (minPrice && maxPrice) {
+      where.price = Between(minPrice, maxPrice);
+    }
+
+    if (!Number(page)) {
+      return {
+        nfts: [],
+        meta: {
+          page: 1,
+          totalPages: 0,
+          totalNfts: 0,
+        },
+      };
+    }
+    const take = limit;
+    const skip = (page - 1) * take;
+
+    const [nfts, totalNfts] = await this.nftsRepository.findAndCount({
+      relations: ['owner'],
+      order: {
+        verified: 'DESC',
+        [sortField || 'priority']: (sortOrder || 'DESC').toUpperCase(),
+        id: 'DESC',
       },
-      order: sortBy,
-      skip,
       take,
+      skip,
+      where,
     });
+
+    return {
+      nfts,
+      meta: {
+        page,
+        totalPages: Math.ceil(totalNfts / take),
+        totalNfts,
+      },
+    };
   }
 
   findByTokenUri(tokenUri: string): Promise<Nft> {
