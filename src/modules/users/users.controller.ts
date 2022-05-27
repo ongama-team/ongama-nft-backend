@@ -1,10 +1,11 @@
-import { Controller, Get, Param, Put, Body, CacheTTL, UseGuards, BadRequestException } from '@nestjs/common';
+import { Controller, Get, Param, Put, Body, BadRequestException, CacheTTL, UseGuards } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
 import { isValidAddress } from 'src/utils/Utils';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto } from './users.dto';
+import { Web3Helper } from '../../utils/web3Helper';
 
 @ApiTags('users')
 @Controller('users')
@@ -12,10 +13,47 @@ import { UserUpdateProfileDto } from './users.dto';
 export class UsersController {
   constructor(private readonly userService: UsersService, private readonly nftService: NftsService) {}
 
+  @UseGuards(WalletSignatureGuard)
   @Put('/profile')
-  async updateProfile(@Body() data: UserUpdateProfileDto) {
-    delete data.signature;
-    await this.userService.updateById(data.id, data);
+  async updateProfile(@Body() userData: UserUpdateProfileDto) {
+    const checksumAddress = Web3Helper.getAddressChecksum(userData.walletAddress);
+
+    const foundUser = await this.userService.findByAddress(checksumAddress);
+
+    if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
+      const newFoundUser = await this.userService.findByUsername(userData.username);
+
+      if (newFoundUser && foundUser.walletAddress !== newFoundUser.walletAddress) {
+        throw new BadRequestException(
+          'Username is already taken: %{username} - %{address} Attempt',
+          JSON.stringify({
+            username: userData.username,
+            address: userData.walletAddress,
+          }),
+        );
+      }
+    }
+
+    if (userData.signature) {
+      delete userData.signature;
+    }
+
+    await this.userService.updateById(foundUser.id, {
+      username: userData?.username || foundUser?.username || null,
+      userBio: userData?.userBio || foundUser?.userBio || null,
+      avatarUrl: userData?.avatarUrl || foundUser?.avatarUrl || null,
+      avatarUrlCompressed: userData?.avatarUrl
+        ? userData?.avatarUrlCompressed || null
+        : foundUser?.avatarUrlCompressed || null,
+      avatarUrlThumbnail: userData?.avatarUrl
+        ? userData?.avatarUrlThumbnail || null
+        : foundUser?.avatarUrlThumbnail || null,
+      coverUrl: userData?.coverUrl ? userData?.coverUrl || null : foundUser?.coverUrl || null,
+      coverThumbnailUrl: userData?.coverThumbnailUrl
+        ? userData?.coverThumbnailUrl || null
+        : foundUser?.coverThumbnailUrl || null,
+      usernameLowercase: (userData?.username || foundUser?.username || '')?.toLocaleLowerCase(),
+    });
 
     return {
       statusCode: 200,
@@ -28,8 +66,7 @@ export class UsersController {
     let user = await this.userService.findByAddress(addressOrUsername);
 
     if (!user) {
-      const valid = isValidAddress(addressOrUsername);
-      if (!valid) {
+      if (!isValidAddress(addressOrUsername)) {
         throw new BadRequestException('The address or username is not valid');
       }
       user = await this.userService.saveNewUser({

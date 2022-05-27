@@ -17,10 +17,6 @@ export class UserUpdateProfileDto {
 
   @IsString()
   @IsOptional()
-  readonly usernameLowercase?: string;
-
-  @IsString()
-  @IsOptional()
   readonly userBio: string;
 
   @IsString()
