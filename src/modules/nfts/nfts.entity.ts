@@ -100,6 +100,9 @@ export class Nft {
   @JoinColumn()
   owner: User;
 
+  @Column({ nullable: true, type: 'int8', default: null })
+  dropId: number;
+
   @ManyToOne(() => NftDrop, (drop: NftDrop) => drop.nfts)
   @JoinColumn()
   drop: NftDrop;
