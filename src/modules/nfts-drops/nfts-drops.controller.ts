@@ -12,10 +12,8 @@ export class NftsDropsController {
   @Get('/:dropID')
   async findOneByDropId(@Param('dropID') dropID: string) {
     const drop = await this.dropService.findOneByDropID(dropID);
-    // const dropRelatedNfts = await this.nftService.
     return {
       drop,
-      // dropRelatedNfts,
     };
   }
 
