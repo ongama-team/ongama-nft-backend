@@ -3,11 +3,11 @@ import { IsNumber, IsString, IsOptional } from 'class-validator';
 export class NftGetAllQuery {
   @IsNumber()
   @IsOptional()
-  limit?: number;
+  limit?: number = 10;
 
   @IsNumber()
   @IsOptional()
-  page?: number;
+  page?: number = 1;
 
   @IsNumber()
   @IsOptional()
@@ -16,10 +16,6 @@ export class NftGetAllQuery {
   @IsNumber()
   @IsOptional()
   maxPrice?: number;
-
-  @IsString()
-  @IsOptional()
-  category?: string;
 
   @IsString()
   @IsOptional()

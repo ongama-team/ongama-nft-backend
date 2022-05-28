@@ -23,6 +23,12 @@ export class UsersController {
     if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
       const newFoundUser = await this.userService.findByUsername(userData.username);
 
+
+    const foundUser = await this.userService.findByAddress(checksumAddress);
+
+    if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
+      const newFoundUser = await this.userService.findByUsername(userData.username);
+
       if (newFoundUser && foundUser.walletAddress !== newFoundUser.walletAddress) {
         throw new BadRequestException(
           'Username is already taken: %{username} - %{address} Attempt',
