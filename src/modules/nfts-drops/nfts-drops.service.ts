@@ -33,7 +33,7 @@ export class NftsDropsService {
 
   findOneByDropID(dropID: string): Promise<NftDrop> {
     return this.dropRepository.findOne({
-      relations: ['creator'],
+      relations: ['creator', 'nfts'],
       where: { dropID },
     });
   }
