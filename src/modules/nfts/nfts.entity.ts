@@ -29,11 +29,8 @@ export class Nft {
   @Column({ nullable: true, type: 'varchar' })
   ownerAddress: string;
 
-  @Column({ nullable: true, type: 'varchar' })
-  ownerUsername: string;
-
-  @Column({ nullable: true, type: 'varchar' })
-  creatorUsername: string;
+  @Column({ nullable: true, type: 'int8', default: null })
+  dropId: number;
 
   @Column({ nullable: true, type: 'varchar' })
   mintTransactionHash: string;
@@ -57,7 +54,7 @@ export class Nft {
   listed: boolean;
 
   @Column({ nullable: true, type: 'bool', default: false })
-  listedOnChain: boolean;
+  listedOnchain: boolean;
 
   @Column({ nullable: true, type: 'bool', default: false })
   verified: boolean;

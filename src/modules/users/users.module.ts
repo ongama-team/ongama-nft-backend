@@ -3,9 +3,9 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 
 import { UsersService } from './users.service';
 import { NftsService } from '../nfts/nfts.service';
+import { UsersController } from './users.controller';
 import { UsersRepository } from './users.repository';
 import { Nft } from '../nfts/nfts.entity';
-import { UsersController } from './users.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([UsersRepository, Nft])],
