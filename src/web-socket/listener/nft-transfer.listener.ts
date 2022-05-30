@@ -65,9 +65,8 @@ export default class NftTransferListener {
           ...nft,
           ownerId: receiverUser.id,
           ownerAddress: receiverUser.walletAddress,
-          ownerUsername: receiverUser.username,
           listed: false,
-          listedOnChain: false,
+          listedOnchain: false,
         }),
         await this.userService.increment({ id: nft.creator.id, column: 'nftsOwnCount' }),
       ]);

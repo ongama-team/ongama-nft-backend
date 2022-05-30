@@ -36,6 +36,14 @@ export class CreateNFTDto {
   category: string;
 
   @IsString()
+  @IsOptional()
+  oldDropID: string;
+
+  @IsNumber()
+  @IsOptional()
+  dropId: number;
+
+  @IsString()
   tokenUri: string;
 
   @IsString()

@@ -37,21 +37,5 @@ export class UserUpdateProfileDto {
   readonly coverThumbnailUrl?: string;
 
   @IsString()
-  @IsOptional()
-  readonly socialUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly twitterUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly instagramUrl?: string;
-
-  @IsString()
-  @IsOptional()
-  readonly facebookUrl?: string;
-
-  @IsString()
   signature?: string;
 }

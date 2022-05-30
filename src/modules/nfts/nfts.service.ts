@@ -19,16 +19,15 @@ export class NftsService {
   ) {}
 
   async save(data: CreateNFTDto): Promise<Nft> {
-    // const walletAddress = Web3Helper.getAddressChecksum(data?.ownerAddress);
     let user = await this.userRepository.findOne({
       where: {
-        walletAddress: '',
+        walletAddress: data.ownerAddress,
       },
     });
 
     if (!user) {
       user = await this.userRepository.save({
-        walletAddress: '',
+        walletAddress: data.ownerAddress,
       });
     }
 
@@ -40,8 +39,6 @@ export class NftsService {
     nft.fileType = data.fileType;
     nft.ownerAddress = user?.walletAddress || data.ownerAddress;
     nft.creatorAddress = user?.walletAddress || data.ownerAddress;
-    nft.creatorUsername = user?.username || '';
-    nft.ownerUsername = user?.username || '';
     nft.tokenUri = data.tokenUri;
     nft.price = data.price;
     nft.storageFee = data.storageFee || 0;
@@ -54,8 +51,9 @@ export class NftsService {
     nft.urlCompressed = data.urlCompressed;
     nft.urlThumbnail = data.urlThumbnail;
     nft.verified = user.verified;
+    nft.dropId = data.dropId || null;
     nft.listed = true;
-    nft.listedOnChain = true;
+    nft.listedOnchain = true;
     nft.priority = 0;
     nft.createdAt = dayjs().format();
     nft.updatedAt = dayjs().format();
