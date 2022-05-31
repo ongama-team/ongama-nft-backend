@@ -12,4 +12,14 @@ module.exports = {
   migrations: ['src/database/migrations/*{.ts,.js}'],
   migrationsTableName: 'TypeormMigrations',
   migrationsRun: true,
+  ...(process.env.NODE_ENV === 'production'
+    ? {
+        ssl: true,
+        extra: {
+          ssl: {
+            rejectUnauthorized: false,
+          },
+        },
+      }
+    : {}),
 };
