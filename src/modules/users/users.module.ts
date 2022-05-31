@@ -5,10 +5,10 @@ import { UsersService } from './users.service';
 import { NftsService } from '../nfts/nfts.service';
 import { UsersController } from './users.controller';
 import { UsersRepository } from './users.repository';
-import { Nft } from '../nfts/nfts.entity';
+import { NftRepository } from '../nfts/nfts.repository';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([UsersRepository, Nft])],
+  imports: [TypeOrmModule.forFeature([UsersRepository, NftRepository])],
   providers: [UsersService, NftsService],
   exports: [UsersService],
   controllers: [UsersController],
