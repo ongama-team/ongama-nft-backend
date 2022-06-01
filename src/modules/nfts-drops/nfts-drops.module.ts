@@ -11,7 +11,7 @@ import { NftsModule } from '../nfts/nfts.module';
 @Module({
   imports: [TypeOrmModule.forFeature([NftsDropsRepository]), UsersModule, forwardRef(() => NftsModule)],
   providers: [NftsDropsService, NftsService, UsersService],
-  exports: [NftsDropsService],
+  exports: [TypeOrmModule, NftsDropsService],
   controllers: [NftsDropsController],
 })
 export class NftsDropsModule {}

@@ -2,7 +2,6 @@ import { Controller, Get, Param, Put, Body, BadRequestException, CacheTTL, UseGu
 
 import { ApiTags } from '@nestjs/swagger';
 import { isValidAddress } from 'src/utils/Utils';
-import { NftsService } from '../nfts/nfts.service';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto } from './users.dto';
 import { Web3Helper } from '../../utils/web3Helper';
@@ -10,7 +9,7 @@ import { WalletSignatureGuard } from '../../guards/walletSignature.guard';
 @ApiTags('users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly userService: UsersService, private readonly nftService: NftsService) {}
+  constructor(private readonly userService: UsersService) {}
 
   @UseGuards(WalletSignatureGuard)
   @Put('/profile')
