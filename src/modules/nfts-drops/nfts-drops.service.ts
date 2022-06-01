@@ -2,17 +2,15 @@ import 'dotenv/config';
 import { Injectable } from '@nestjs/common';
 import { MoreThan, UpdateResult } from 'typeorm';
 import dayjs from 'dayjs';
+import { InjectRepository } from '@nestjs/typeorm';
 import { NftsDropsRepository } from './nfts-drops.repository';
 import { NftDrop } from './nfts-drops.entity';
-import { UsersRepository } from '../users/users.repository';
-import { NftRepository } from '../nfts/nfts.repository';
 
 @Injectable()
 export class NftsDropsService {
   constructor(
+    @InjectRepository(NftsDropsRepository)
     public readonly dropRepository: NftsDropsRepository,
-    public readonly userRepository: UsersRepository,
-    public readonly nftRepository: NftRepository,
   ) {}
 
   findActiveDrops(): Promise<NftDrop[]> {

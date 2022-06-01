@@ -2,16 +2,15 @@ import 'dotenv/config';
 import { Injectable } from '@nestjs/common';
 import { UpdateResult } from 'typeorm';
 
-import { UsersRepository } from './users.repository';
 import { User } from './users.entity';
-import { NftRepository } from '../nfts/nfts.repository';
+import { UsersRepository } from './users.repository';
 
 @Injectable()
 export class UsersService {
-  constructor(public readonly userRepository: UsersRepository, public readonly nftRepository: NftRepository) {}
+  constructor(public usersRepository: UsersRepository) {}
 
   saveNewUser(data: Partial<User>): Promise<User> {
-    return this.userRepository.save({
+    return this.usersRepository.save({
       ...data,
       createdAt: new Date(),
       updatedAt: new Date(),
@@ -19,7 +18,7 @@ export class UsersService {
   }
 
   findByUsername(username: string): Promise<User> {
-    return this.userRepository.findOne({
+    return this.usersRepository.findOne({
       where: {
         username,
       },
@@ -27,15 +26,15 @@ export class UsersService {
   }
 
   findAll(): Promise<User[]> {
-    return this.userRepository.find();
+    return this.usersRepository.find();
   }
 
-  findOne(id: string): Promise<User> {
-    return this.userRepository.findOne(id);
+  findOneById(id: string): Promise<User> {
+    return this.usersRepository.findOne(id);
   }
 
   findByAddress(walletAddress: string): Promise<User> {
-    return this.userRepository.findOne({
+    return this.usersRepository.findOne({
       where: {
         walletAddress,
       },
@@ -43,14 +42,14 @@ export class UsersService {
   }
 
   updateById(id: number, data: Partial<User>): Promise<UpdateResult> {
-    return this.userRepository.update(id, data);
+    return this.usersRepository.update(id, data);
   }
 
   increment({ id, column, by = 1 }: { id: number; column: keyof User; by?: number }): Promise<UpdateResult> {
-    return this.userRepository.increment({ id }, column, by);
+    return this.usersRepository.increment({ id }, column, by);
   }
 
   decrement({ id, column, by = 1 }: { id: number; column: keyof User; by?: number }): Promise<UpdateResult> {
-    return this.userRepository.decrement({ id }, column, by);
+    return this.usersRepository.decrement({ id }, column, by);
   }
 }

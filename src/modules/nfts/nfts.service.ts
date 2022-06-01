@@ -1,32 +1,26 @@
 import { Between, IsNull, LessThanOrEqual, MoreThanOrEqual, Not, Repository, UpdateResult } from 'typeorm';
 import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
 
 import dayjs from 'dayjs';
 import { Nft } from './nfts.entity';
 
-import { UsersRepository } from '../users/users.repository';
-import { CreateNFTDto, NftGetAllQuery } from './nfts.dto';
+import { CreateNFTDto } from './nfts.dto';
 import { UsersService } from '../users/users.service';
+import { NftRepository } from './nfts.repository';
 
 @Injectable()
 export class NftsService {
-  constructor(
-    @InjectRepository(Nft)
-    private nftsRepository: Repository<Nft>,
-    public readonly userRepository: UsersRepository,
-    public readonly userService: UsersService,
-  ) {}
+  constructor(private nftsRepository: NftRepository, public readonly usersService: UsersService) {}
 
   async save(data: CreateNFTDto): Promise<Nft> {
-    let user = await this.userRepository.findOne({
+    let user = await this.usersService.usersRepository.findOne({
       where: {
         walletAddress: data.ownerAddress,
       },
     });
 
     if (!user) {
-      user = await this.userRepository.save({
+      user = await this.usersService.usersRepository.save({
         walletAddress: data.ownerAddress,
       });
     }
