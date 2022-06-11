@@ -42,5 +42,6 @@ module.exports = {
     'no-underscore-dangle': 'off',
     'no-undef': 'off',
     'lines-between-class-members': 'off',
+    'consistent-return': 'off',
   },
 };
