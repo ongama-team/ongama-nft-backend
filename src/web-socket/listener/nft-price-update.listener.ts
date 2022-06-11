@@ -8,20 +8,20 @@ import { Web3Helper } from '../../utils/web3Helper';
 import { UsersService } from '../../modules/users/users.service';
 
 @Injectable()
-export default class NftCreatedListener {
+export default class NftPriceUpdateListener {
   constructor(private readonly nftService: NftsService, private readonly userService: UsersService) {}
 
   listen(listener) {
     listener.on(
-      listener.filters.Minted(),
-      async (minter: string, price: BigNumber, nftID: number, uri: string, event: Event) => {
+      listener.filters.PriceUpdate(),
+      async (owner: string, oldPrice: BigNumber, newPrice: BigNumber, nftID: number, event: Event) => {
         logger.info(
-          `Received event for NFT creation for nft - ${nftID}, to address - ${minter}, event - ${JSON.stringify(
+          `Received event for NFT price modification - ${nftID}, to address - ${owner}, event - ${JSON.stringify(
             event,
           )}`,
         );
 
-        const nft = await this.nftService.findByTokenUri(uri);
+        const nft = await this.nftService.findByTokenID(nftID);
 
         if (!nft) {
           throw new NotFoundException('NFT not found');
@@ -47,15 +47,26 @@ export default class NftCreatedListener {
           throw new BadRequestException('FAILED_VALIDATING_MINT: Mint request could not be validated');
         }
 
-        await Promise.all([
-          await this.nftService.updateToken(nft.id, {
-            tokenUri: uri,
-            mintTransactionHash: event.transactionHash.toLowerCase(),
-            tokenID: nftID,
-            price: Number(web3.utils.fromWei(price.toString(), 'ether')),
-          }),
-          await this.userService.increment({ id: nft.creator.id, column: 'nftsCount' }),
-        ]);
+        if (nft.tokenID !== nftID) {
+          logger.warn('TokenID mismatch different from on-chain tokenID', {
+            onChainTokenID: nftID,
+            nftIDUpdateTokenID: nft.tokenID,
+          });
+          return false;
+        }
+        const nftOldPrice = web3.utils.fromWei(oldPrice.toString(), 'ether');
+
+        if (nft.price.toString() !== nftOldPrice) {
+          logger.warn('NFT Price mismatch different from on-chain tokenID', {
+            onChainPrice: nftOldPrice,
+            nftIDUpdateTokenPrice: nft.price,
+          });
+          return false;
+        }
+
+        await this.nftService.updateToken(nft.id, {
+          price: Number(web3.utils.fromWei(newPrice.toString(), 'ether')),
+        });
       },
     );
   }
