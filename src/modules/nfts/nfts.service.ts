@@ -1,4 +1,4 @@
-import { Between, IsNull, LessThanOrEqual, MoreThanOrEqual, Not, Repository, UpdateResult } from 'typeorm';
+import { Between, IsNull, LessThanOrEqual, MoreThanOrEqual, Not, UpdateResult } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 
 import dayjs from 'dayjs';
@@ -7,13 +7,14 @@ import { Nft } from './nfts.entity';
 import { CreateNFTDto } from './nfts.dto';
 import { UsersService } from '../users/users.service';
 import { NftRepository } from './nfts.repository';
+import { UsersRepository } from '../users/users.repository';
 
 @Injectable()
 export class NftsService {
   constructor(
     public readonly nftsRepository: NftRepository,
     public readonly userRepository: UsersRepository,
-    public readonly userService: UsersService,
+    public readonly usersService: UsersService,
   ) {}
 
   async save(data: CreateNFTDto): Promise<Nft> {

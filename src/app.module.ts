@@ -47,8 +47,8 @@ const redisOptions = isProd ? { url: process.env.REDIS_URL.toString() } : { host
 @Module({
   imports: [
     CacheModule.register({
-      //store: redisStore,
-      //...redisOptions,
+      store: redisStore,
+      ...redisOptions,
     }),
     ConfigModule.forRoot({
       envFilePath: '.env',

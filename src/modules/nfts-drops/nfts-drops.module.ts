@@ -1,4 +1,4 @@
-import { forwardRef, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { NftsDropsService } from './nfts-drops.service';
 import { NftsDropsRepository } from './nfts-drops.repository';
