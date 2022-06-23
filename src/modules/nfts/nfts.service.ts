@@ -10,7 +10,11 @@ import { NftRepository } from './nfts.repository';
 
 @Injectable()
 export class NftsService {
-  constructor(private nftsRepository: NftRepository, public readonly usersService: UsersService) {}
+  constructor(
+    public readonly nftsRepository: NftRepository,
+    public readonly userRepository: UsersRepository,
+    public readonly userService: UsersService,
+  ) {}
 
   async save(data: CreateNFTDto): Promise<Nft> {
     let user = await this.usersService.usersRepository.findOne({

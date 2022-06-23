@@ -60,6 +60,9 @@ export class User {
   @Column({ nullable: true, type: 'int4', default: 0 })
   nftsOwnCount: number;
 
+  @Column({ nullable: false, type: 'float8', default: 0.0 })
+  salesTotalAmount: number;
+
   @OneToMany(() => Nft, (nft: Nft) => nft.creator)
   public nftsCreated: Nft[];
 

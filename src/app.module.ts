@@ -19,6 +19,7 @@ import { UsersRepository } from './modules/users/users.repository';
 import NftTransferListener from './web-socket/listener/nft-transfer.listener';
 import { NftsDropsModule } from './modules/nfts-drops/nfts-drops.module';
 import NftPriceUpdateListener from './web-socket/listener/nft-price-update.listener';
+import NftSaleListener from './web-socket/listener/nft-sale.listener';
 
 const isProd = process.env.NODE_ENV === 'production';
 const providers: any = [
@@ -28,6 +29,7 @@ const providers: any = [
   NftCreatedListener,
   NftTransferListener,
   NftPriceUpdateListener,
+  NftSaleListener,
   NftsService,
   NftRepository,
   UsersRepository,
