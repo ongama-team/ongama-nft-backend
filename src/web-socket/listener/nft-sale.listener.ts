@@ -28,7 +28,7 @@ export default class NftSaleListener {
         }
 
         const { mintContractAddress, web3 } = Web3Helper.getWeb3();
-        const transactionReceipt = await web3.eth.getTransactionReceipt(event.transactionHash.toLowerCase());
+        const transactionReceipt = await event.getTransactionReceipt();
 
         if (mintContractAddress.toLowerCase() !== transactionReceipt.to.toLowerCase()) {
           logger.warn('Sent to the wrong contract address', {

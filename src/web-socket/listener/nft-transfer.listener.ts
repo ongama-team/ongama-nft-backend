@@ -1,34 +1,40 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
 import { Event } from '@ethersproject/contracts';
+import { BigNumber } from 'ethers';
 
 import { NftsService } from '../../modules/nfts/nfts.service';
 import { logger } from '../../utils/logger';
 import { Web3Helper } from '../../utils/web3Helper';
 import { UsersService } from '../../modules/users/users.service';
 import { isValidAddress } from '../../utils/Utils';
+import { ZERO_ADDRESS } from '../../constants/shared';
 
 @Injectable()
 export default class NftTransferListener {
   constructor(private readonly nftService: NftsService, private readonly userService: UsersService) {}
 
   listen(listener) {
-    listener.on(listener.filters.Transfer(), async (from: string, to: string, tokenID: number, event: Event) => {
+    listener.on(listener.filters.Transfer(), async (from: string, to: string, tokenID: BigNumber, event: Event) => {
       logger.info(
         `Received event for NFT of ID ${tokenID} transfer from address ${from} to address ${to}, event - ${JSON.stringify(
           event,
         )}`,
       );
 
+      if (from === ZERO_ADDRESS) {
+        return false;
+      }
+
       // -- Load the NFT
-      const nft = await this.nftService.findByTokenID(tokenID);
+      const nft = await this.nftService.findByTokenID(Number(tokenID));
 
       if (!nft) {
         throw new NotFoundException('NFT not found');
       }
 
       // -- Check the transaction hash
-      const { mintContractAddress, web3 } = Web3Helper.getWeb3();
-      const transactionReceipt = await web3.eth.getTransactionReceipt(event.transactionHash.toLowerCase());
+      const { mintContractAddress } = Web3Helper.getWeb3();
+      const transactionReceipt = await event.getTransactionReceipt();
 
       if (mintContractAddress.toLowerCase() !== transactionReceipt.to.toLowerCase()) {
         logger.warn('Sent to the wrong contract address', {

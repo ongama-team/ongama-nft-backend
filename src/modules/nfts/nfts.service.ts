@@ -128,16 +128,16 @@ export class NftsService {
     };
   }
 
-  findByTokenUri(tokenUri: string): Promise<Nft> {
-    return this.nftsRepository.findOne(tokenUri);
+  async findByTokenUri(tokenUri: string): Promise<Nft> {
+    return await this.nftsRepository.findOne({ where: { tokenUri } });
   }
 
   findByTokenID(tokenID: number): Promise<Nft> {
     return this.nftsRepository.findOne({ where: { tokenID }, relations: ['owner'] });
   }
 
-  updateToken(id: number, data: Partial<Nft>): Promise<UpdateResult> {
-    return this.nftsRepository.update(id, {
+  async updateToken(id: number, data: Partial<Nft>): Promise<UpdateResult> {
+    return await this.nftsRepository.update(id, {
       ...data,
     });
   }

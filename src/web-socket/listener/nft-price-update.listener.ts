@@ -1,5 +1,5 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { BigNumber } from '@ethersproject/bignumber';
+import { ethers, BigNumber } from 'ethers';
 import { Event } from '@ethersproject/contracts';
 
 import { NftsService } from '../../modules/nfts/nfts.service';
@@ -14,21 +14,22 @@ export default class NftPriceUpdateListener {
   listen(listener) {
     listener.on(
       listener.filters.PriceUpdate(),
-      async (owner: string, oldPrice: BigNumber, newPrice: BigNumber, nftID: number, event: Event) => {
+      async (owner: string, oldPrice: BigNumber, newPrice: BigNumber, nftID: BigNumber, event: Event) => {
         logger.info(
           `Received event for NFT price modification - ${nftID}, to address - ${owner}, event - ${JSON.stringify(
             event,
           )}`,
         );
 
-        const nft = await this.nftService.findByTokenID(nftID);
+        const tokenID = Number(nftID);
+        const nft = await this.nftService.findByTokenID(tokenID);
 
         if (!nft) {
           throw new NotFoundException('NFT not found');
         }
 
-        const { mintContractAddress, web3 } = Web3Helper.getWeb3();
-        const transactionReceipt = await web3.eth.getTransactionReceipt(event.transactionHash.toLowerCase());
+        const { mintContractAddress } = Web3Helper.getWeb3();
+        const transactionReceipt = await event.getTransactionReceipt();
 
         if (mintContractAddress.toLowerCase() !== transactionReceipt.to.toLowerCase()) {
           logger.warn('Sent to the wrong contract address', {
@@ -47,16 +48,16 @@ export default class NftPriceUpdateListener {
           throw new BadRequestException('FAILED_VALIDATING_MINT: Mint request could not be validated');
         }
 
-        if (nft.tokenID !== nftID) {
+        if (nft.tokenID !== tokenID) {
           logger.warn('TokenID mismatch different from on-chain tokenID', {
-            onChainTokenID: nftID,
+            onChainTokenID: tokenID,
             nftIDUpdateTokenID: nft.tokenID,
           });
           return false;
         }
-        const nftOldPrice = web3.utils.fromWei(oldPrice.toString(), 'ether');
+        const nftOldPrice = Number(ethers.utils.formatEther(oldPrice));
 
-        if (nft.price.toString() !== nftOldPrice) {
+        if (nft.price !== nftOldPrice) {
           logger.warn('NFT Price mismatch different from on-chain tokenID', {
             onChainPrice: nftOldPrice,
             nftIDUpdateTokenPrice: nft.price,
@@ -65,7 +66,7 @@ export default class NftPriceUpdateListener {
         }
 
         await this.nftService.updateToken(nft.id, {
-          price: Number(web3.utils.fromWei(newPrice.toString(), 'ether')),
+          price: Number(ethers.utils.formatEther(newPrice)),
         });
       },
     );
