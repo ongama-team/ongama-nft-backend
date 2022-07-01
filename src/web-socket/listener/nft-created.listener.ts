@@ -1,6 +1,6 @@
 import { BadRequestException, Injectable, NotFoundException } from '@nestjs/common';
-import { BigNumber } from '@ethersproject/bignumber';
 import { Event } from '@ethersproject/contracts';
+import { ethers, BigNumber } from 'ethers';
 
 import { NftsService } from '../../modules/nfts/nfts.service';
 import { logger } from '../../utils/logger';
@@ -14,7 +14,7 @@ export default class NftCreatedListener {
   listen(listener) {
     listener.on(
       listener.filters.Minted(),
-      async (minter: string, price: BigNumber, nftID: number, uri: string, event: Event) => {
+      async (minter: string, price: BigNumber, nftID: BigNumber, uri: string, event: Event) => {
         logger.info(
           `Received event for NFT creation for nft - ${nftID}, to address - ${minter}, event - ${JSON.stringify(
             event,
@@ -27,8 +27,8 @@ export default class NftCreatedListener {
           throw new NotFoundException('NFT not found');
         }
 
-        const { mintContractAddress, web3 } = Web3Helper.getWeb3();
-        const transactionReceipt = await web3.eth.getTransactionReceipt(event.transactionHash.toLowerCase());
+        const { mintContractAddress } = Web3Helper.getWeb3();
+        const transactionReceipt = await event.getTransactionReceipt();
 
         if (mintContractAddress.toLowerCase() !== transactionReceipt.to.toLowerCase()) {
           logger.warn('Sent to the wrong contract address', {
@@ -51,10 +51,10 @@ export default class NftCreatedListener {
           await this.nftService.updateToken(nft.id, {
             tokenUri: uri,
             mintTransactionHash: event.transactionHash.toLowerCase(),
-            tokenID: nftID,
-            price: Number(web3.utils.fromWei(price.toString(), 'ether')),
+            tokenID: Number(nftID),
+            price: Number(ethers.utils.formatEther(price)),
           }),
-          await this.userService.increment({ id: nft.creator.id, column: 'nftsCount' }),
+          await this.userService.increment({ id: nft.creatorId, column: 'nftsCount' }),
         ]);
       },
     );

@@ -14,12 +14,11 @@ import { NftsModule } from './modules/nfts/nfts.module';
 import InitListener from './web-socket/listener/init.listener';
 import NftCreatedListener from './web-socket/listener/nft-created.listener';
 import { NftsService } from './modules/nfts/nfts.service';
-import { NftRepository } from './modules/nfts/nfts.repository';
-import { UsersRepository } from './modules/users/users.repository';
 import NftTransferListener from './web-socket/listener/nft-transfer.listener';
 import { NftsDropsModule } from './modules/nfts-drops/nfts-drops.module';
 import NftPriceUpdateListener from './web-socket/listener/nft-price-update.listener';
 import NftSaleListener from './web-socket/listener/nft-sale.listener';
+import { UsersService } from './modules/users/users.service';
 
 const isProd = process.env.NODE_ENV === 'production';
 const providers: any = [
@@ -31,8 +30,7 @@ const providers: any = [
   NftPriceUpdateListener,
   NftSaleListener,
   NftsService,
-  NftRepository,
-  UsersRepository,
+  UsersService,
 ];
 
 if (process.env.NODE_ENV === 'production') {
