@@ -40,16 +40,10 @@ export class UsersController {
       username: userData?.username || foundUser?.username || null,
       userBio: userData?.userBio || foundUser?.userBio || null,
       avatarUrl: userData?.avatarUrl || foundUser?.avatarUrl || null,
-      avatarUrlCompressed: userData?.avatarUrl
-        ? userData?.avatarUrlCompressed || null
-        : foundUser?.avatarUrlCompressed || null,
-      avatarUrlThumbnail: userData?.avatarUrl
-        ? userData?.avatarUrlThumbnail || null
-        : foundUser?.avatarUrlThumbnail || null,
-      coverUrl: userData?.coverUrl ? userData?.coverUrl || null : foundUser?.coverUrl || null,
-      coverThumbnailUrl: userData?.coverThumbnailUrl
-        ? userData?.coverThumbnailUrl || null
-        : foundUser?.coverThumbnailUrl || null,
+      avatarUrlCompressed: userData?.avatarUrlCompressed || foundUser?.avatarUrlCompressed || null,
+      avatarUrlThumbnail: userData?.avatarUrlThumbnail || foundUser?.avatarUrlThumbnail || null,
+      coverUrl: userData?.coverUrl || foundUser?.coverUrl || null,
+      coverThumbnailUrl: userData?.coverThumbnailUrl || foundUser?.coverThumbnailUrl || null,
       usernameLowercase: (userData?.username || foundUser?.username || '')?.toLocaleLowerCase(),
     });
 
