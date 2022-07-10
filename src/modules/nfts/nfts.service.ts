@@ -93,16 +93,6 @@ export class NftsService {
       where.price = Between(minPrice, maxPrice);
     }
 
-    if (!Number(page)) {
-      return {
-        nfts: [],
-        meta: {
-          page: 1,
-          totalPages: 0,
-          totalNfts: 0,
-        },
-      };
-    }
     const take = limit;
     const skip = (page - 1) * take;
 
