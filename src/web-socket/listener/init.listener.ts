@@ -6,6 +6,7 @@ import NftCreatedListener from './nft-created.listener';
 import NFTContractABI from '../../abi/NFT.json';
 import NftTransferListener from './nft-transfer.listener';
 import NftPriceUpdateListener from './nft-price-update.listener';
+import NftListingUpdateListener from './nft-listing-update.listener';
 
 @Injectable()
 export default class InitListener {
@@ -17,6 +18,7 @@ export default class InitListener {
     private nftCreatedListener: NftCreatedListener,
     private nftTransferListener: NftTransferListener,
     private nftPriceUpdateListener: NftPriceUpdateListener,
+    private nftListingUpdateListener: NftListingUpdateListener,
     private configService: ConfigService,
   ) {
     this.mintContractAddress = this.configService.get<number>('MINT_CONTRACT_ADDRESS');
@@ -27,6 +29,7 @@ export default class InitListener {
     this.nftCreatedListener.listen(this.listener);
     this.nftTransferListener.listen(this.listener);
     this.nftPriceUpdateListener.listen(this.listener);
+    this.nftListingUpdateListener.listen(this.listener);
   }
 
   private initListener(provider) {

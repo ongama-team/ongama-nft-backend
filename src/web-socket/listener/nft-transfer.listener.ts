@@ -52,29 +52,26 @@ export default class NftTransferListener {
         throw new BadRequestException('FAILED_VALIDATING_TRANSFER: Transfer request could not be validated');
       }
 
-      // -- Check the receiver
       let receiverUser = await this.userService.findByAddress(to);
       if (!receiverUser) {
         if (!isValidAddress(to)) {
           throw new BadRequestException('INVALID_RECEIVER_ADDRESS: Failed validating the receiving address');
         }
 
-        // We create the user
         receiverUser = await this.userService.saveNewUser({
           walletAddress: Web3Helper.getAddressChecksum(to),
         });
       }
 
-      // -- Update the NFT's new owner. & Set listed = false
       await Promise.all([
         await this.nftService.updateToken(nft.id, {
-          ...nft,
           ownerId: receiverUser.id,
           ownerAddress: receiverUser.walletAddress,
           listed: false,
           listedOnchain: false,
         }),
-        await this.userService.increment({ id: nft.creator.id, column: 'nftsOwnCount' }),
+        await this.userService.decrement({ id: nft.ownerId, column: 'nftsOwnCount' }),
+        await this.userService.increment({ id: receiverUser.id, column: 'nftsOwnCount' }),
       ]);
     });
   }
