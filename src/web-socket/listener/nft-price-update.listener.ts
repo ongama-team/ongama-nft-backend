@@ -48,7 +48,7 @@ export default class NftPriceUpdateListener {
           throw new BadRequestException('FAILED_VALIDATING_MINT: Mint request could not be validated');
         }
 
-        if (nft.tokenID !== tokenID) {
+        if (Number(nft.tokenID) !== tokenID) {
           logger.warn('TokenID mismatch different from on-chain tokenID', {
             onChainTokenID: tokenID,
             nftIDUpdateTokenID: nft.tokenID,
