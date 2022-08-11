@@ -1,4 +1,4 @@
-import { Controller, Post, Body, BadRequestException, Param, Get } from '@nestjs/common';
+import { Controller, Post, Body, BadRequestException, Param, Get, CacheTTL } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { NftsService } from './nfts.service';
 import { CreateNFTDto, NftGetAllQuery } from './nfts.dto';
@@ -15,6 +15,7 @@ export class NftsController {
     public readonly dropService: NftsDropsService,
   ) {}
 
+  @CacheTTL(60)
   @Get('/')
   async getAll(@Param() params: NftGetAllQuery) {
     return await this.nftService.findFeed(params);
@@ -43,6 +44,16 @@ export class NftsController {
 
     return {
       message: 'Nft created successfully',
+      nft,
+    };
+  }
+
+  @CacheTTL(60)
+  @Get('/:tokenUri/tokenUri')
+  async getNftByTokenUri(@Param('tokenUri') tokenUri: string) {
+    const nft = await this.nftService.findByTokenUri(tokenUri);
+
+    return {
       nft,
     };
   }
