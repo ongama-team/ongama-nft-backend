@@ -1,10 +1,13 @@
-import { IsString, IsOptional } from 'class-validator';
+import { IsString, IsOptional, IsNumber } from 'class-validator';
 
 export class UserDto {
   readonly walletAddress: string;
 }
 
 export class UserUpdateProfileDto {
+  @IsNumber()
+  readonly id: number;
+
   @IsString()
   readonly walletAddress: string;
 

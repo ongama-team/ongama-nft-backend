@@ -1,4 +1,4 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Get, Param } from '@nestjs/common';
 import { ApiTags } from '@nestjs/swagger';
 import { NftsDropsService } from './nfts-drops.service';
 import { NftsService } from '../nfts/nfts.service';
@@ -8,6 +8,14 @@ import { CreateDropDto } from './nfts-drops.dto';
 @Controller('nfts-drops')
 export class NftsDropsController {
   constructor(private readonly dropService: NftsDropsService, private readonly nftService: NftsService) {}
+
+  @Get('/:dropID')
+  async findOneByDropId(@Param('dropID') dropID: string) {
+    const drop = await this.dropService.findOneByDropID(dropID);
+    return {
+      drop,
+    };
+  }
 
   @Post('/')
   async createDrop(@Body() dropData: CreateDropDto) {

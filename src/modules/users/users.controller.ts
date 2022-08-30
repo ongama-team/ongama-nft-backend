@@ -1,13 +1,14 @@
 import { Controller, Get, Param, Put, Body, BadRequestException, CacheTTL, UseGuards } from '@nestjs/common';
-
 import { ApiTags } from '@nestjs/swagger';
+import { WalletSignatureGuard } from 'src/guards/walletSignature.guard';
 import { isValidAddress } from 'src/utils/Utils';
 import { UsersService } from './users.service';
 import { UserUpdateProfileDto } from './users.dto';
 import { Web3Helper } from '../../utils/web3Helper';
-import { WalletSignatureGuard } from '../../guards/walletSignature.guard';
+
 @ApiTags('users')
 @Controller('users')
+@UseGuards(WalletSignatureGuard)
 export class UsersController {
   constructor(private readonly userService: UsersService) {}
 
@@ -15,6 +16,12 @@ export class UsersController {
   @Put('/profile')
   async updateProfile(@Body() userData: UserUpdateProfileDto) {
     const checksumAddress = Web3Helper.getAddressChecksum(userData.walletAddress);
+
+    const foundUser = await this.userService.findByAddress(checksumAddress);
+
+    if (userData.username && foundUser?.username?.toLocaleLowerCase() !== userData?.username?.toLocaleLowerCase()) {
+      const newFoundUser = await this.userService.findByUsername(userData.username);
+
 
     const foundUser = await this.userService.findByAddress(checksumAddress);
 
